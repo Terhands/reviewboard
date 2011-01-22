@@ -59,6 +59,13 @@ settings_urlpatterns = patterns('reviewboard.admin.views',
         {'form_class': forms.StorageSettingsForm,
          'template_name': 'admin/storage_settings.html'},
         name="settings-storage"),
+#########################################################
+# Terhands
+    url(r'^style/$', 'site_settings',
+        {'form_class':forms.StyleSettingsForm,
+         'template_name': 'admin/style_settings.html'},
+        name="settings-style"),
+#########################################################
 )
 
 urlpatterns = patterns('reviewboard.admin.views',

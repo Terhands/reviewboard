@@ -727,10 +727,10 @@ class StyleSettingsForm(SiteSettingsForm):
             self.disabled_fields['couchdb_default_server'] = True
             self.disabled_reasons['couchdb_default_server'] = reason
 
-        super(StorageSettingsForm, self).load()
+        super(StyleSettingsForm, self).load()
 
     def save(self):
-        super(StorageSettingsForm, self).save()
+        super(StyleSettingsForm, self).save()
         load_site_config()
 
     def full_clean(self):
@@ -752,7 +752,7 @@ class StyleSettingsForm(SiteSettingsForm):
             if storage_backend != 'couchdb':
                 set_fieldset_required('storage_couchdb', False)
 
-        super(StorageSettingsForm, self).full_clean()
+        super(StyleSettingsForm, self).full_clean()
 
     class Meta:
         title = _('File Storage Settings')

@@ -63,7 +63,7 @@ settings_urlpatterns = patterns('reviewboard.admin.views',
 # Terhands
     url(r'^style/$', 'site_settings',
         {'form_class':forms.StyleSettingsForm,
-         'template_name': 'admin/style_settings.html'},
+         'template_name': 'admin/settings.html'},
         name="settings-style"),
 #########################################################
 )

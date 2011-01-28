@@ -648,6 +648,199 @@ class StorageSettingsForm(SiteSettingsForm):
         )
 
 
-class StyleSettingsForm(SiteSettingsForm):
-    """Style Setting for Review Board."""
+class ThemeSettingsForm(SiteSettingsForm):
+    """Theme Setting for Review Board."""
 
+    # for all color selection forms:
+    #
+    # TODO: add in color-selectors so the user doesn't
+    # have to know hex colors to set up their site.
+    # Link the color selection values/views to the
+    # char field
+    #
+    # TODO: validate user input (set up a regex to check
+    # that the values input are [A-F0-9]
+    #
+    # TODO: figure out how to put a character limit
+    # into the color text fields
+    #
+    # TODO: make a better form to use (as it will be used
+    # for all color option fields). 
+    # Something like: 
+    # Label Color-Selector CharField(max_length=6) restore default
+    # where the CharField value is linked up to the Color-Selector
+    # value
+
+    # general fields
+    general_banner_background = forms.CharField(
+        label = _('Banner Background'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    # TODO: add in an image browsing tool so users can easily
+    # use a banner from their local storage
+    general_banner_image = forms.CharField(
+        label = _('Banner Image'),
+        help_text =_('Example: http://server/rb/images/logo.png'),
+        required = True
+        )
+
+    general_background_color = forms.CharField(
+        label = _('Background Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    # text fields 
+    text_header_color = forms.CharField(
+        label = _('Header Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    text_sub_header_color = forms.CharField(
+        label = _('Sub-Header Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    text_paragraph_font_color = forms.CharField(
+        label = _('Font Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+    
+    # dashboard fields
+    dashboard_menu_color = forms.CharField(
+        label = _('Menu Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+ 
+    dashboard_menu_font_color = forms.CharField(
+        label = _('Menu Font Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    dashboard_header_color = forms.CharField(
+        label = _('Dashboard Header Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+    
+    dashboard_font_color = forms.CharField(
+        label = _('Dashboard Font Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    dashboard_datagrid_header_color = forms.CharField(
+        label = _('Datagrid Header Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    dashboard_datagrid_color = forms.CharField(
+        label = _('Datagrid Background Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    dashboard_datagrid_font_color = forms.CharField(
+        label = _('Datagrid Font Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_tip_background_color = forms.CharField(
+        label = _('Tips Background Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_tip_font_color = forms.CharField(
+        label = _('Tips Font Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_request_header_color = forms.CharField(
+        label = _('Request Header Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_request_background_color = forms.CharField(
+        label = _('Request Background Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_request_font_color = forms.CharField(
+        label = _('Request Font Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_summary_background_color = forms.CharField(
+        label = _('Summary Background Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_summary_font_color = forms.CharField(
+        label = _('Summary Font Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    review_summary_button_color = forms.CharField(
+        label = _('Summary Button Color'),
+        help_text =_('(Hex Value) Example: ABF123'),
+        required = True
+        )
+
+    class Meta:
+        title = _('Theme Settings')
+
+        fieldsets = (
+            {
+                'classes': ('wide',),
+                'title':   _('General Theme'),
+                'fields':  ('general_banner_background',
+                            'general_banner_image', 
+                            'general_background_color'),
+            },
+            {
+                'classes': ('wide',),
+                'title':   _('Text Theme',),
+                'fields':  ('text_header_color',
+                            'text_sub_header_color',
+                            'text_paragraph_font_color'),
+            },
+            {
+                'classes': ('wide',),
+                'title':   _('Dashboard Theme'),
+                'fields':  ('dashboard_header_color',
+                            'dashboard_font_color',
+                            'dashboard_menu_color',
+                            'dashboard_menu_font_color',
+                            'dashboard_datagrid_header_color',
+                            'dashboard_datagrid_color',
+                            'dashboard_datagrid_font_color'),
+            },
+            {
+                'classes': ('wide',),
+                'title':   _('Review Request Theme'),
+                'fields':  ('review_tip_background_color',
+                            'review_tip_font_color',
+                            'review_request_header_color',
+                            'review_request_background_color',
+                            'review_request_font_color',
+                            'review_summary_background_color',
+                            'review_summary_font_color',
+                            'review_summary_button_color'),
+            },
+        )

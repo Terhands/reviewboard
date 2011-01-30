@@ -31,6 +31,7 @@ import re
 import urlparse
 
 from django import forms
+from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext as _
@@ -665,8 +666,8 @@ class ThemeSettingsForm(SiteSettingsForm):
     # into the color text fields
     #
     # TODO: make a better form to use (as it will be used
-    # for all color option fields). 
-    # Something like: 
+    # for all color option fields).
+    # Something like:
     # Label Color-Selector CharField(max_length=6) restore default
     # where the CharField value is linked up to the Color-Selector
     # value
@@ -692,7 +693,7 @@ class ThemeSettingsForm(SiteSettingsForm):
         required = True
         )
 
-    # text fields 
+    # text fields
     text_header_color = forms.CharField(
         label = _('Header Color'),
         help_text =_('(Hex Value) Example: ABF123'),
@@ -710,14 +711,14 @@ class ThemeSettingsForm(SiteSettingsForm):
         help_text =_('(Hex Value) Example: ABF123'),
         required = True
         )
-    
+
     # dashboard fields
     dashboard_menu_color = forms.CharField(
         label = _('Menu Color'),
         help_text =_('(Hex Value) Example: ABF123'),
         required = True
         )
- 
+
     dashboard_menu_font_color = forms.CharField(
         label = _('Menu Font Color'),
         help_text =_('(Hex Value) Example: ABF123'),
@@ -729,7 +730,7 @@ class ThemeSettingsForm(SiteSettingsForm):
         help_text =_('(Hex Value) Example: ABF123'),
         required = True
         )
-    
+
     dashboard_font_color = forms.CharField(
         label = _('Dashboard Font Color'),
         help_text =_('(Hex Value) Example: ABF123'),
@@ -810,18 +811,18 @@ class ThemeSettingsForm(SiteSettingsForm):
                 'classes': ('wide',),
                 'title':   _('General Theme'),
                 'fields':  ('general_banner_background',
-                            'general_banner_image', 
+                            'general_banner_image',
                             'general_background_color'),
             },
             {
-                'classes': ('wide',),
+                'classes': ('wide','collapse',),
                 'title':   _('Text Theme',),
                 'fields':  ('text_header_color',
                             'text_sub_header_color',
                             'text_paragraph_font_color'),
             },
             {
-                'classes': ('wide',),
+                'classes': ('wide','collapse'),
                 'title':   _('Dashboard Theme'),
                 'fields':  ('dashboard_header_color',
                             'dashboard_font_color',
@@ -832,7 +833,7 @@ class ThemeSettingsForm(SiteSettingsForm):
                             'dashboard_datagrid_font_color'),
             },
             {
-                'classes': ('wide',),
+                'classes': ('wide','collapse',),
                 'title':   _('Review Request Theme'),
                 'fields':  ('review_tip_background_color',
                             'review_tip_font_color',

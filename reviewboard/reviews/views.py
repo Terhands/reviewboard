@@ -28,7 +28,8 @@ from djblets.util.http import set_last_modified, get_modified_since, \
                               set_etag, etag_if_none_match
 from djblets.util.misc import get_object_or_none
 
-from reviewboard.accounts.decorators import check_login_required
+from reviewboard.accounts.decorators import check_login_required, \
+                                            valid_prefs_required
 from reviewboard.accounts.models import ReviewRequestVisit
 from reviewboard.changedescs.models import ChangeDescription
 from reviewboard.diffviewer.diffutils import get_file_chunks_in_range
@@ -79,6 +80,9 @@ def _find_review_request(request, review_request_id, local_site_name):
     """
     if local_site_name:
         local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return None, _render_permission_denied(request)
+
         review_request = get_object_or_404(ReviewRequest,
                                            local_site=local_site,
                                            local_id=review_request_id)
@@ -226,10 +230,8 @@ def new_review_request(request,
     """
     if local_site_name:
         local_site = get_object_or_404(LocalSite, name=local_site_name)
-
-        if (request.user.is_anonymous() or
-            not local_site.users.filter(pk=request.user.pk).exists()):
-            return _render_permission_denied(requset)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
     else:
         local_site = None
 
@@ -469,9 +471,12 @@ def all_review_requests(request,
     """
     Displays a list of all review requests.
     """
-    local_site = get_object_or_none(LocalSite, name=local_site_name)
-    if local_site_name and not local_site:
-        raise Http404
+    if local_site_name:
+        local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
+    else:
+        local_site = None
     datagrid = ReviewRequestDataGrid(request,
         ReviewRequest.objects.public(request.user,
                                      status=None,
@@ -489,8 +494,13 @@ def submitter_list(request,
     """
     Displays a list of all users.
     """
-    grid = SubmitterDataGrid(
-        request, local_site=get_object_or_none(LocalSite, name=local_site_name))
+    if local_site_name:
+        local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
+    else:
+        local_site = None
+    grid = SubmitterDataGrid(request, local_site=local_site)
     return grid.render_to_response(template_name)
 
 
@@ -501,12 +511,18 @@ def group_list(request,
     """
     Displays a list of all review groups.
     """
-    grid = GroupDataGrid(
-        request, local_site=get_object_or_none(LocalSite, name=local_site_name))
+    if local_site_name:
+        local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
+    else:
+        local_site = None
+    grid = GroupDataGrid(request, local_site=local_site)
     return grid.render_to_response(template_name)
 
 
 @login_required
+@valid_prefs_required
 def dashboard(request,
               template_name='reviews/dashboard.html',
               local_site_name=None):
@@ -526,7 +542,12 @@ def dashboard(request,
     """
     view = request.GET.get('view', None)
 
-    local_site = get_object_or_none(LocalSite, name=local_site_name)
+    if local_site_name:
+        local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
+    else:
+        local_site = None
 
     if view == "watched-groups":
         # This is special. We want to return a list of groups, not
@@ -547,7 +568,12 @@ def group(request,
     A list of review requests belonging to a particular group.
     """
     # Make sure the group exists
-    local_site = get_object_or_none(LocalSite, name=local_site_name)
+    if local_site_name:
+        local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
+    else:
+        local_site = None
     group = get_object_or_404(Group, name=name, local_site=local_site)
 
     if not group.is_accessible_by(request.user):
@@ -570,10 +596,17 @@ def group_members(request,
     """
     A list of users registered for a particular group.
     """
+    if local_site_name:
+        local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
+    else:
+        local_site = None
+
     # Make sure the group exists
     group = get_object_or_404(Group,
                               name=name,
-                              local_site__name=local_site_name)
+                              local_site=local_site)
 
     if not group.is_accessible_by(request.user):
         return _render_permission_denied(
@@ -594,9 +627,12 @@ def submitter(request,
     """
     A list of review requests owned by a particular user.
     """
-    local_site = get_object_or_none(LocalSite, name=local_site_name)
-    if local_site_name and not local_site:
-        raise Http404
+    if local_site_name:
+        local_site = get_object_or_404(LocalSite, name=local_site_name)
+        if not local_site.is_accessible_by(request.user):
+            return _render_permission_denied(request)
+    else:
+        local_site = None
 
     # Make sure the user exists
     if local_site:

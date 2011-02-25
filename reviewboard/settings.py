@@ -86,6 +86,7 @@ SITE_ROOT = '/'
 
 TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(REVIEWBOARD_ROOT, 'templates/extended'),
     os.path.join(REVIEWBOARD_ROOT, 'templates'),
 )
 

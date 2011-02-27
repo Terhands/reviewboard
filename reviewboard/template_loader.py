@@ -1,23 +1,34 @@
 from django.conf import settings
-from django.template import TemplateDoesNotExist
+from django.template.loaders import app_directories
+from django.template import Template
 
-def load_template_source(template_name, template_dirs=None):
-    """Template loader that loads templates from a ZIP file."""
+class ExtensionLoader(app_directories.Loader):
+    is_usable = True
 
-    template_files = getattr(settings, "TEMPLATE_DIRS", [])
+    def load_template(self, template_name, template_dirs=None):
+        """Template loader that loads templates with the _extended suffix"""
 
-    # looking for extended templates
-    for file_name in template_files:
-        if file_name == "extended_" + template_name:
-            # found an extended template so return it
-            template_path = "%s:%s" % (file_name, template_name)
-            return (source, template_path)
+        template_dirs = getattr(settings, "TEMPLATE_DIRS", [])
 
-    # failed to find an extended template so this loader will
-    # fail and the default loader will load the default template
-    raise TemplateDoesNotExist(template_name)
+#        import pdb; pdb.set_trace()
+        template_name = template_name.replace(".html", "_extended.html")
 
-# setting this loader to usable (always want to try the extensions
-# before the default templates)
-load_template_source.is_usable = True
+        source, origin = self.load_template_source(template_name, template_dirs)
+        template = Template(source)
+        return template, origin
 
+
+class DefaultLoader(app_directories.Loader):
+    is_usable = True
+
+    def load_template(self, template_name, template_dirs=None):
+        """Template loader that loads templates with the _extended suffix"""
+
+        template_dirs = getattr(settings, "TEMPLATE_DIRS", [])
+
+#        import pdb; pdb.set_trace()
+        template_name = template_name.replace("_default", "");
+
+        source, origin = self.load_template_source(template_name, template_dirs)
+        template = Template(source)
+        return template, origin

@@ -14,89 +14,20 @@
 {% block content %}
 <div class="colMS">
  <div id="content-main">
-  {# "Manage" section #}
-  <div class="module manage">
-   <table summary="{% trans "Common management operations." %}">
-    <caption>{% trans "Manage" %}</caption>
-    <tbody>
-     <tr>
-      <th scope="row"><a href="db/auth/user/">{% trans "Users" %}</a>
-        <span class="count">({{user_count}})</span></th>
-      <td><a class="addlink" href="db/auth/user/add/">{% trans "Add" %}</a></td>
-     </tr>
-     <tr>
-      <th scope="row"><a href="db/reviews/group/">{% trans "Review groups" %}</a>
-        <span class="count">({{reviewgroup_count}})</span></th>
-      <td><a class="addlink" href="db/reviews/group/add/">{% trans "Add" %}</a></td>
-     </tr>
-     <tr>
-      <th scope="row"><a href="db/reviews/defaultreviewer/">{% trans "Default reviewers" %}</a>
-        <span class="count">({{defaultreviewer_count}})</span></th>
-      <td><a class="addlink" href="db/reviews/defaultreviewer/add/">{% trans "Add" %}</a></td>
-     </tr>
-     <tr>
-      <th scope="row"><a href="db/scmtools/repository/">{% trans "Repositories" %}</a>
-        <span class="count">({{repository_count}})</span></th>
-      <td><a class="addlink" href="db/scmtools/repository/add/">{% trans "Add" %}</a></td>
-     </tr>
-    </tbody>
-   </table>
-  </div>
+   {# manage section #}
+   {% include "admin/dashboard_manage.html" %}
  </div> {# content-main #}
 
  <div id="content-related">
   {# "Server Info" section #}
-  <div class="module serverinfo">
-   <table summary="{% trans "Server information." %}">
-    <caption>{% trans "Server Information" %}</caption>
-    <tbody>
-     <tr>
-      <th>{% trans "Review Board version" %}</th>
-      <td>{{version}}</td>
-     </tr>
-     <tr>
-      <th colspan="2"><a href="cache/">{% trans "Server Cache" %}</a></th>
-     </tr>
-{% if settings.LOGGING_ENABLED and settings.LOGGING_DIRECTORY %}
-     <tr>
-      <th colspan="2"><a href="{% url server-log %}">{% trans "Server Log" %}</a></th>
-     </tr>
-{% endif %}
-    </tbody>
-   </table>
-  </div>
+  {% include "admin/dashboard_server_info.html" %}
  </div> {# content-related #}
 </div> {# colMS #}
 
 <br class="clear" />
 <div class="colM">
  {# "News" section #}
- <div class="module news">
-  <table summary="{% trans "Latest Review Board news updates." %}">
-   <caption>
-    <span class="title">{% trans "News" %}</span>
-	<span class="actions">
-     <a href="http://www.reviewboard.org/news/">View All News</a>
-	 |
-     <a href="." id="reload-news">{% trans "Reload" %}</a>
-     |
-     <a href="feed/news/rss/">
-      <img src="{{MEDIA_URL}}rb/images/rss.png?{{MEDIA_SERIAL}}" width="14" height="14" />
-      RSS
-     </a>
-    </span>
-   </caption>
-   <tbody>
-    <tr>
-     <td id="news-content">
-	  <img src="{{MEDIA_URL}}rb/images/spinner.gif?{{MEDIA_SERIAL}}"
-	       class="loading-indicator" width="16" height="16" border="0" alt="" />
-	  {% trans "Loading..." %}
-	 </td>
-    </tr>
-   </tbody>
-  </table>
- </div>
+ {% include "admin/dashboard_news.html" %}
 </div>
 <script language="javascript">
     $(document).ready(function() {

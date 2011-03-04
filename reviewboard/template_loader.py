@@ -15,9 +15,9 @@ class ExtensionLoader(app_directories.Loader):
         # that is including a default template, so load the default
         # otherwise try to load an extended version first
         if template_name.startswith("reviewboard/"):
-            template_name.replace("reviewboard/")
+            template_name = template_name.replace("reviewboard/", "")
         else:
-            template_name.replace(".html", "_extended.html")
+            template_name = template_name.replace(".html", "_extended.html")
 
         source, origin = self.load_template_source(template_name, template_dirs)
         template = Template(source)

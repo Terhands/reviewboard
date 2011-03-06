@@ -49,64 +49,8 @@
  <body>
 {% endblock %}
   <div id="container">
-{% block headerbar %}
-   <div id="headerbar">
-    <ul id="accountnav">
-{% if user.is_authenticated %}
-{%  blocktrans with user|realname|escape as username %}
-     <li>Welcome, <b>{{username}}</b></li>
-{% endblocktrans %}
-     <li>- <a href="{% url user-preferences %}">{% trans "My account" %}</a></li>
-{%  if user.is_staff %}
-     <li>- <a href="{% url reviewboard.admin.views.dashboard %}">{% trans "Admin" %}</a></li>
-{%  endif %}
-     <li>- <a href="{% url logout %}">{% trans "Log out" %}</a></li>
-{% else %}
-     <li><a href="{% url login %}?next_page={{request.path}}">{% trans "Log in" %}</a></li>
-{#  XXX Using default sucks, but siteconfig defaults don't #}
-{#      work from templates.                               #}
-{%  if auth_backends.0.supports_registration and siteconfig.settings.auth_enable_registration|default_if_none:1 %}
-     <li>- <a href="{% url register %}">{% trans "Register" %}</a></li>
-{%  endif %}
-{% endif %}{# !is_authenticated #}
-     <li>- <a href="http://www.reviewboard.org/docs/manual/dev/">{% trans "Documentation" %}</a></li>
-     <li>- <a href="http://www.reviewboard.org/bugs/">{% trans "Bugs" %}</a></li>
-     <li>- <a href="http://www.reviewboard.org/bugs/new/">{% trans "Report bug" %}</a></li>
-    </ul>
-    <br />
-    <div id="rbinfo">
-     <a href="{% url root %}"><img id="logo" src="{{MEDIA_URL}}rb/images/logo.png?{{MEDIA_SERIAL}}" width="60" height="57" alt="" border="0" /></a>
-     <h1 id="title">
-	  <a href="{% url root %}">Review Board</a>
-	  <span class="version">{{version}}</span>
-	 </h1>
-    </div>
-   </div>
-   <div id="page-container">
-   {% if user.is_authenticated or not siteconfig.settings.auth_require_sitewide_login %}
-    {% if siteconfig.settings.search_enable %}<form method="get" action="{% url search %}">{% endif %}
-     <div id="navbar-outer">
-      <ul id="navbar">
-{% if user.is_authenticated %}
-       <li><a href="{% url dashboard %}">{% trans "My Dashboard" %}</a></li>
-       <li><a href="{% url new-review-request %}">{% trans "New Review Request" %}</a></li>
-       <li>-</li>
-{% endif %}
-       <li><a href="{% url all-review-requests %}">{% trans "All review requests" %}</a></li>
-       <li><a href="{% url all-groups %}">{% trans "Groups" %}</a></li>
-       <li><a href="{% url all-users %}">{% trans "Submitters" %}</a></li>
-       {% if siteconfig.settings.search_enable %}
-       <li id="searchbar">
-       <input type="text" name="q" {% attr "value" %}{{query}}{% endattr %} />
-        <input type="submit" value="{% trans "Search" %}" />
-       </li>
-       {% endif %}
-      </ul>
-     </div>
-     {% if siteconfig.settings.search_enable %}</form>{% endif %}
-    {% endif %}
-{% endblock %}
-    <noscript>
+    {% include "base/base_header.html" %}
+     <noscript>
 {%  box "important" %}
      <h1>{% trans "JavaScript is turned off" %}</h1>
      <p>{% blocktrans %}Review Board requires JavaScript in order to function.

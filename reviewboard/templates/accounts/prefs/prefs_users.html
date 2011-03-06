@@ -1,0 +1,34 @@
+{% load i18n %}
+
+{% if auth_backends.0.supports_change_name %}
+   <tr>
+    <td><label for="id_first_name">{% trans "First Name:" %}</label></td>
+    <td>{{form.first_name}}</td>
+   </tr>
+   <tr>
+    <td><label for="id_last_name">{% trans "Last Name:" %}</label></td>
+    <td>{{form.last_name}}</td>
+   </tr>
+{% endif %}
+{% if auth_backends.0.supports_change_email %}
+   <tr>
+    <td><label for="id_email">{% trans "Email:" %}</label></td>
+    <td>{{form.email}} {{form.errors.email}}</td>
+   </tr>
+{% endif %}
+{% if auth_backends.0.supports_change_password %}
+   <tr>
+    <td><label for="id_password">{% trans "Change Password:" %}</label></td>
+    <td>{{form.password1}}</td>
+   </tr>
+   <tr>
+    <td><label for="id_password2">{% trans "Verify New Password:" %}</label></td>
+    <td>{{form.password2}} {{form.errors.password2}}</td>
+   </tr>
+{% endif %}
+{% if siteconfig.settings.diffviewer_syntax_highlighting %}
+   <tr>
+    <td></td>
+    <td>{{form.syntax_highlighting}} {{form.syntax_highlighting.label}}</td>
+   </tr>
+{% endif %}

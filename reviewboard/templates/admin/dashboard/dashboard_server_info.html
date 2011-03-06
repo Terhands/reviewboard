@@ -1,6 +1,7 @@
 {# dashboard server section #}
 {% load i18n %}
 
+{% block server %}
 <div class="module serverinfo">
  <table summary="{% trans "Server information." %}">
   <caption>{% trans "Server Information" %}</caption>
@@ -20,3 +21,4 @@
   </tbody>
  </table>
 </div>
+{% endblock %}

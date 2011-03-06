@@ -1,6 +1,7 @@
 {# the dashboard manager in the admin view #}
 
 {% load i18n %}
+{% block manage %}
   <div class="module manage">
    <table summary="{% trans "Common management operations." %}">
     <caption>{% trans "Manage" %}</caption>
@@ -28,3 +29,4 @@
     </tbody>
    </table>
   </div>
+{% endblock %}

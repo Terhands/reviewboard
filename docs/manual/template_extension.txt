@@ -7,8 +7,10 @@ Steps:
 	3. Inside the extended template file add the tag 
 			{% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
 	4. If you open the orinalTemplate.html file you will see block tags in the form:
-			{% block blockName %} near the top of the file
-	5. Add the {% block blockName %} tag to the top of the extension file
+			{% block blockName %} throughout the file
+	5. Add the {% block blockName %} tag that you want to change to the top of the extension file
+			Note: You can extend as many blocks as you want from the original as long as it has
+			a properly nested matching endblock tag
 	6. Add a closing block tag at the end of the extension file {% endblock %}
 	7. Add the {{block.super}} tag inside the block tags that have been added to the
 			extension file (this adds all of the content from the originalTemplate to the
@@ -28,8 +30,10 @@ Example - extending dashboard_manage.html
 	5. Add {% block manage %} to the extension file (under the extends tag)
 	6. Add the {% endblock %}	 tag to the end of the extension file
 	7. Add {{block.super}} inside the block tags
-	8. Add the desired html extension (Add the test Hello, World! after the {{block.super}} tag) 
-			Save the extension file
+	8. Add the desired html extension (Add the text "<h1>Hello, World!</h1>" after the 
+			{{block.super}} tag) 
+
+Save the extension file
 
 When the admin/dashboard_manage.html template is next loaded the extension will load in its place
 and the text Hello, World! will appear after the original content.

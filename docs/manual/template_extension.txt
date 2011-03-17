@@ -1,0 +1,35 @@
+Extending Templates
+-------------------
+
+Steps:
+	1. Navigate to the directory of the template to extend (within reviewboard/templates)
+	2. Create a new text file with a name in the format originalTemplate_extended.html
+	3. Inside the extended template file add the tag 
+			{% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
+	4. If you open the orinalTemplate.html file you will see block tags in the form:
+			{% block blockName %} near the top of the file
+	5. Add the {% block blockName %} tag to the top of the extension file
+	6. Add a closing block tag at the end of the extension file {% endblock %}
+	7. Add the {{block.super}} tag inside the block tags that have been added to the
+			extension file (this adds all of the content from the originalTemplate to the
+			extended block)
+	8. Add any desired html inside the block tags (everything added before the {{block.super}}
+			tags will appear before the original content, everything added after the {{block.super}}
+			tags will appear after the original content)
+
+Example - extending dashboard_manage.html
+
+	1. dashboard_manage.html is in the directory reviewboard/templates/admin/dashboard	
+	2. Create dashboard_manage_extended.html in reviewboard/templates/admin/dashboard
+	3. Open dashboard_manage_extended.html and add the following extension tag:
+			{% extends "reviewboard/admin/dashboard.html" %} (note you do not need to include templates)
+	4. Open the dashboard_manage.html file to get the appropriate block tag
+			{% block manage %}
+	5. Add {% block manage %} to the extension file (under the extends tag)
+	6. Add the {% endblock %}	 tag to the end of the extension file
+	7. Add {{block.super}} inside the block tags
+	8. Add the desired html extension (Add the test Hello, World! after the {{block.super}} tag) 
+			Save the extension file
+
+When the admin/dashboard_manage.html template is next loaded the extension will load in its place
+and the text Hello, World! will appear after the original content.

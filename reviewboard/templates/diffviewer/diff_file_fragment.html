@@ -2,6 +2,9 @@
 {% load difftags %}
 {% load djblets_deco %}
 {% load djblets_utils %}
+
+{% block content %}
+
 {% if standalone and error %}
 {{error}}
 {% endif %}
@@ -117,3 +120,5 @@
 </script>
 {%  endif %}{# not standalone #}
 {% endif %}{# No changed chunks and not a binary file #}
+
+{% endblock %}

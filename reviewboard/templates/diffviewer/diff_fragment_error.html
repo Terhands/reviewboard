@@ -1,6 +1,8 @@
 {% load djblets_utils %}
 {% load i18n %}
 
+{% block content %}
+
 <table class="sidebyside diff-error{% if file.newfile %} newfile{% endif %}"
        id="file_container_{{file.filediff.id}}">
  <thead>
@@ -61,3 +63,5 @@
     {% include_as_string "diffviewer/changeindex_entry.html" %});
 </script>
 {% endif %}
+
+{% endblock %}

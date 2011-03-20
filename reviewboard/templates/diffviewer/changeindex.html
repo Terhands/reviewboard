@@ -1,4 +1,7 @@
 {% load i18n %}
+
+{% block content %}
+
 <ol class="index" start="{{page_start_index}}">
 {% for file in files %}
  <li class="change_file_{{file.index}}"><a href="#{{file.index}}" onclick="return !gotoAnchor('{{file.index}}');">{{file.depot_filename}}</a>:
@@ -19,3 +22,5 @@
  {% endfor %}
  {% if has_next %}<span class="paginate-next"><a href="?page={{ next_page }}" title="{% trans "Next Page" %}">&gt;</a></span>{% endif %}
 {% endif %}
+
+{% endblock %}

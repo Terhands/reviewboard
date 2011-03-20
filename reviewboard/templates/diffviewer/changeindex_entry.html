@@ -1,4 +1,7 @@
 {% load i18n %}
+
+{% block content %}
+
 <a href="#{{file.index}}" onclick="return !gotoAnchor('{{file.index}}');">{{file.depot_filename}}</a>:
 {% if error %}
 {%  trans "Diff currently unavailable." %}
@@ -25,3 +28,5 @@
 {%   endif %}{# !deleted #}
 {%  endif %}{# !binary #}
 {% endif %}{# !error #}
+
+{% endblock %}

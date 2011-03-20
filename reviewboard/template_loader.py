@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.template.loaders import app_directories
 from django.template import Template
+from django.template.loaders import app_directories
 
 
 class ExtensionLoader(app_directories.Loader):

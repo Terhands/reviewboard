@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block content %}
+
 <div id="headerbar">
  <ul id="accountnav">
 {% include "base/base_header_links.html" %}
@@ -35,4 +36,5 @@
  </div>
  {% if siteconfig.settings.search_enable %}</form>{% endif %}
 {% endif %}
+
 {% endblock %}

@@ -1,6 +1,9 @@
 {% load djblets_utils %}
 {% load reviewtags %}
 {% load difftags %}
+
+{% block content %}
+
 <table class="sidebyside{% ifequal comment.filediff.source_revision PRE_CREATION %} newfile{% endifequal %}">
  <colgroup>
   <col class="line" />
@@ -48,3 +51,5 @@
  </tbody>
 {% endfor %}{# chunks #}
 </table>
+
+{% endblock %}

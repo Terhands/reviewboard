@@ -1,0 +1,22 @@
+{# Tip content of a new review request. #}
+
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% trans "Tip: Use post-review" %}</h1>
+<p>
+{% blocktrans %}
+ You can simplify creating and updating review requests by using
+ <a href="http://www.reviewboard.org/docs/manual/dev/users/tools/post-review/">post-review</a>.
+{% endblocktrans %}
+</p>
+<p>
+{% blocktrans %}
+ post-review is a command line tool that will help create compatible
+ diffs, create new review requests, and update them, effortlessly. It
+ is compatible with Windows, Linux, MacOS X, and Solaris.
+{% endblocktrans %}
+</p>
+
+{% endblock %}

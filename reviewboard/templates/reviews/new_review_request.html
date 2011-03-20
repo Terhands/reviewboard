@@ -32,20 +32,7 @@
 
 {% block content %}
 {% box "tip" %}
-<h1>{% trans "Tip: Use post-review" %}</h1>
-<p>
-{% blocktrans %}
- You can simplify creating and updating review requests by using
- <a href="http://www.reviewboard.org/docs/manual/dev/users/tools/post-review/">post-review</a>.
-{% endblocktrans %}
-</p>
-<p>
-{% blocktrans %}
- post-review is a command line tool that will help create compatible
- diffs, create new review requests, and update them, effortlessly. It
- is compatible with Windows, Linux, MacOS X, and Solaris.
-{% endblocktrans %}
-</p>
+{% include "reviews/new_review/new_review_request_tips.html" %}
 {% endbox %}
 
 <form method="post" action="." enctype="multipart/form-data">
@@ -53,53 +40,7 @@
  <h1 class="title">{% trans "New Review Request" %}</h1>
  <div class="main">
   <table>
-   <tr>
-    <td><label for="id_repository">{% trans "Repository" %}:</label></td>
-	<td>{{form.repository}}</td>
-	<td>{{form.repository.errors}}</td>
-   </tr>
-   <tr class="row_no_repository_explanation">
-    <td></td>
-    <td class="help" colspan="2">
-     {% blocktrans %}
-     You won't be able to add any diffs to this review request. The review
-     request will only be usable for reviewing screenshots and other graphic
-     files.
-     {% endblocktrans %}
-    </td>
-   </tr>
-   <tr class="row_changenum">
-    <td><label for="id_changenum">{{form.changenum.label}}:</label></td>
-    <td>{{form.changenum}}</td>
-    <td>{{form.changenum.errors}}</td>
-   </tr>
-   <tr class="row_basedir">
-    <td><label for="id_basedir">{{form.basedir.label}}:</label></td>
-    <td>{{form.basedir}}</td>
-    <td>{{form.basedir.errors}}</td>
-   </tr>
-   <tr class="row_basedir">
-    <td></td>
-    <td class="help" colspan="2">{{form.basedir.help_text}}</td>
-   </tr>
-   <tr class="row_diff_path">
-    <td><label for="id_diff_path">{{form.diff_path.label}}:</label></td>
-    <td>{{form.diff_path}}</td>
-    <td>{{form.diff_path.errors}}</td>
-   </tr>
-   <tr class="row_diff_path">
-    <td></td>
-    <td class="help" colspan="2">{{form.diff_path.help_text}}</td>
-   </tr>
-   <tr class="row_parent_diff_path">
-    <td><label for="id_parent_diff_path">{{form.parent_diff_path.label}}:</label></td>
-    <td>{{form.parent_diff_path}}</td>
-    <td>{{form.parent_diff_path.errors}}</td>
-   </tr>
-   <tr class="row_parent_diff_path">
-    <td></td>
-    <td class="help" colspan="2">{{form.parent_diff_path.help_text}}</td>
-   </tr>
+{% include "reviews/new_review/new_review_request_content.html" %}
   </table>
  </div>
 {% endbox %}
@@ -109,4 +50,3 @@
 </form>
 
 {% endblock %}
-

@@ -1,4 +1,10 @@
+{# Group account preferences. #}
+
 {% load i18n %}
 
-  <p>{% trans "Which groups do you belong to or wish to watch?" %}</p>
-  {{form.groups}}
+{% block content %}
+
+<p>{% trans "Which groups do you belong to or wish to watch?" %}</p>
+{{form.groups}}
+
+{% endblock %}

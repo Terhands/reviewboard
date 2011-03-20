@@ -1,11 +1,11 @@
-{# User account preferences #}
+{# User account preferences. #}
 
 {% load i18n %}
 
 {% block content %}
 
 {% if auth_backends.0.supports_change_name %}
-<tr> 
+<tr>
  <td><label for="id_first_name">{% trans "First Name:" %}</label></td>
  <td>{{form.first_name}}</td>
 </tr>

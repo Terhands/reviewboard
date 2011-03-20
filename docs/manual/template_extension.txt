@@ -1,10 +1,13 @@
+..
+
+===================
 Extending Templates
--------------------
+===================
 
 Steps:
 	1. Navigate to the directory of the template to extend (within reviewboard/templates)
 	2. Create a new text file with a name in the format originalTemplate_extended.html
-	3. Inside the extended template file add the tag 
+	3. Inside the extended template file add the tag
 			{% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
 	4. If you open the orinalTemplate.html file you will see block tags in the form:
 			{% block blockName %} throughout the file
@@ -21,7 +24,7 @@ Steps:
 
 Example - extending dashboard_manage.html
 
-	1. dashboard_manage.html is in the directory reviewboard/templates/admin/dashboard	
+	1. dashboard_manage.html is in the directory reviewboard/templates/admin/dashboard
 	2. Create dashboard_manage_extended.html in reviewboard/templates/admin/dashboard
 	3. Open dashboard_manage_extended.html and add the following extension tag:
 			{% extends "reviewboard/admin/dashboard.html" %} (note you do not need to include templates)
@@ -30,8 +33,8 @@ Example - extending dashboard_manage.html
 	5. Add {% block manage %} to the extension file (under the extends tag)
 	6. Add the {% endblock %}	 tag to the end of the extension file
 	7. Add {{block.super}} inside the block tags
-	8. Add the desired html extension (Add the text "<h1>Hello, World!</h1>" after the 
-			{{block.super}} tag) 
+	8. Add the desired html extension (Add the text "<h1>Hello, World!</h1>" after the
+			{{block.super}} tag)
 
 Save the extension file
 

@@ -1,5 +1,8 @@
 {% load feedtags %}
 {% load i18n %}
+
+{% block content %}
+
 {% if error %}
 {%  blocktrans with error.reason as error %}<p class="feed-error">Unable to load feed: {{error}}</p>{% endblocktrans %}
 {% else %}
@@ -12,3 +15,5 @@
 </div>
 {%  endfor %}
 {% endif %}
+
+{% endblock %}

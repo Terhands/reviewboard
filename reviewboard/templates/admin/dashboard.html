@@ -14,20 +14,46 @@
 {% block content %}
 <div class="colMS">
  <div id="content-main">
-   {# manage section #}
-   {% include "admin/dashboard_manage.html" %}
+   {# "Manage" section #}
+  <div class="module manage">
+   <table summary="{% trans "Common management operations." %}">
+    <caption>{% trans "Manage" %}</caption>
+    <tbody>
+{% include "admin/dashboard/dashboard_manage.html" %}
+    </tbody>
+   </table>
+  </div>
  </div> {# content-main #}
 
  <div id="content-related">
   {# "Server Info" section #}
-  {% include "admin/dashboard_server_info.html" %}
+  <div class="module serverinfo">
+   <table summary="{% trans "Server information." %}">
+    <caption>{% trans "Server Information" %}</caption>
+    <tbody>
+{% include "admin/dashboard/dashboard_server_info.html" %}
+    </tbody>
+   </table>
+  </div>
  </div> {# content-related #}
 </div> {# colMS #}
 
 <br class="clear" />
 <div class="colM">
  {# "News" section #}
- {% include "admin/dashboard_news.html" %}
+ <div class="module news">
+  <table summary="{% trans "Latest Review Board news updates." %}">
+   <caption>
+    <span class="title">{% trans "News" %}</span>
+    <span class="actions">
+{% include "admin/dashboard/dashboard_news_links.html" %}
+    </span>
+   </caption>
+   <tbody>
+{% include "admin/dashboard/dashboard_news.html" %}
+   </tbody>
+  </table>
+ </div>
 </div>
 <script language="javascript">
     $(document).ready(function() {

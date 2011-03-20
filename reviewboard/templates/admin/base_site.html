@@ -9,8 +9,7 @@
 {% endblock %}
 
 {% block branding %}
-<a href="{% url root %}"><img id="logo" src="{{MEDIA_URL}}rb/images/logo.png?{{MEDIA_SERIAL}}" width="60" height="57" alt="" border="0" /></a>
-<h1 id="site-name">{% trans "Review Board administration" %}</h1>
+{% include "admin/base_site/banner.html" %}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -20,9 +19,7 @@
 {% block nav-global %}
 {%  if user.is_authenticated %}
 <ul id="admin-nav">
- <li><a href="{% url reviewboard.admin.views.dashboard %}">{% trans "Dashboard" %}</a></li>
- <li><a href="{% url reviewboard.admin.views.dashboard %}db/">{% trans "Database" %}</a></li>
- <li><a href="{% url site-settings %}">{% trans "Settings" %}</a></li>
+{% include "admin/base_site/nav_list.html" %}
 </ul>
 
 {%   block subnavbar %}{% endblock %}

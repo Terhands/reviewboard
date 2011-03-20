@@ -1,7 +1,9 @@
+{# Navigation menu of admin_base.html (menu beneath the banner). #}
+
 {% load i18n %}
 
-{% block navigator %}
- <li><a href="{% url reviewboard.admin.views.dashboard %}">{% trans "Dashboard" %}</a></li>
- <li><a href="{% url reviewboard.admin.views.dashboard %}db/">{% trans "Database" %}</a></li>
- <li><a href="{% url site-settings %}">{% trans "Settings" %}</a></li>
+{% block content %}
+<li><a href="{% url reviewboard.admin.views.dashboard %}">{% trans "Dashboard" %}</a></li>
+<li><a href="{% url reviewboard.admin.views.dashboard %}db/">{% trans "Database" %}</a></li>
+<li><a href="{% url site-settings %}">{% trans "Settings" %}</a></li>
 {% endblock %}

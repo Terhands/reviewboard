@@ -47,7 +47,9 @@
 
 {% block sidebar %}
 <div id="content-related">
-  {% include "admin/database/database_sidebar.html" %}
+ <div class="module" id="recent-actions-module">
+{% include "admin/database/database_sidebar.html" %}
+ </div>
 </div>
 {% endblock %}
 

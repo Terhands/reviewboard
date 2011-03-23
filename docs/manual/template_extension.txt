@@ -9,7 +9,7 @@ Steps:
 	2. Create a new text file with a name in the format originalTemplate_extended.html
 	3. Inside the extended template file add the tag
 			{% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
-	4. If you open the orinalTemplate.html file you will see block tags in the form:
+	4. If you open the originalTemplate.html file you will see block tags in the form:
 			{% block blockName %} throughout the file
 	5. Add the {% block blockName %} tag that you want to change to the top of the extension file
 			Note: You can extend as many blocks as you want from the original as long as it has

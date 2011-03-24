@@ -11,5 +11,6 @@ Administration Guide
    sites/index
    admin-ui/index
    management/index
+   templates/index
 
 .. comment: vim: ft=rst et

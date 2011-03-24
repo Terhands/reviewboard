@@ -1,0 +1,10 @@
+==================
+Template Extension
+==================
+
+.. toctree::
+    :maxdepth: 2
+
+    template-extension
+
+.. comment: vim: ft=rst et

@@ -1,0 +1,119 @@
+===================
+Extending Templates
+===================
+
+Extending the Review Board templates is a simple way to add custom components/style to
+the website.
+
+Templates can be found in the :file:`reviewboard/templates` directory.
+
+Steps
+-----
+1. Navigate to the directory of the template to extend (within reviewboard/templates)
+2. Create a new text file with a name in the format :file:`originalTemplate_extended.html`.
+3. Inside the extended template file add the tag::
+
+    {% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
+
+4. If you open the :file:`originalTemplate.html` throughout the file you will see block tags
+   in the form::
+
+    {% block blockName %}
+
+5. Add the opening block tag after the extension tag::
+
+    {% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
+    ...
+    {% block blockName %}
+
+.. note::     You can extend as many blocks as you want from the original as long as it has a
+              properly nested matching endblock tag.
+
+6. Add a closing block tag at the end of the extension file::
+
+    {% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
+    ...
+    {% block blockName %}
+    ...
+    {% endblock %}
+
+7. Add the call to the super-block's constructor to add in all of the original block's content::
+
+    {% extends "reviewboard/pathToTemplateFromTheTemplateDirectory/originalTemplate.html" %}
+    ...
+    {% block blockNam %}
+    ...
+    {{block.super}} 
+    ...
+    {% endblock %}
+
+8. Add any desired html inside the block tags::
+
+    {% block blockName %}
+    // desired code before the original
+    {{block.super}}
+    // desired code after the original
+    {% endblock %}
+
+9. Save the extension file.
+
+Example - extending dashboard_manage.html
+-----------------------------------------
+1. :file:`dashboard_manage.html` is in the directory :file:`reviewboard/templates/admin/dashboard`.
+
+2. Create :file:`dashboard_manage_extended.html` in :file:`reviewboard/templates/admin/dashboard`.
+
+3. Open dashboard_manage_extended.html and add the following extension tag::
+
+    {% extends "reviewboard/admin/dashboard.html" %}
+
+.. note:: You do not need to include the :file:`templates/` to the path.
+
+4. Open the dashboard_manage.html file to get the appropriate block tag::
+
+    {% block manage %}
+
+5. Add the block tag to the extension file (under the extends tag)::
+
+    {% extends "reviewboard/admin/dashboard.html" %}
+
+    {% block manage %}
+
+6. Add the endblock tag to the end of the extension file::
+
+    {% extends "reviewboard/admin/dashboard.html" %}
+
+    {% block manage %}
+    {% endblock %}
+
+7. Add the call to the super-block's constructor inside the block tags::
+
+    {% extends "reviewboard/admin/dashboard.html" %}
+
+    {% block manage %}
+    {{block.super}}
+    {% endblock %}
+
+8. Add the desired html extension::
+
+    {% extends "reviewboard/admin/dashboard.html" %}
+
+    {% block manage %}
+    {{block.super}}
+      <h1>Hello, World!</h1>
+    {% endblock %}
+
+9. Save the extension file.
+
+When the admin/dashboard_manage.html template is next loaded the extension
+will load in its place and the text Hello, World! will appear after the
+original content.
+
+Overriding Templates
+--------------------
+Overriding a template involves the same process as extension, only no call
+to {{block.super}} would be required. This could be used for changing the
+banner image to be displayed for example.
+
+
+.. comment: vim: ft=rst et

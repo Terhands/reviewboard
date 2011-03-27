@@ -193,11 +193,23 @@ class Screenshot(models.Model):
     def __unicode__(self):
         return u"%s (%s)" % (self.caption, self.image)
 
-    def get_absolute_url(self):
+    def get_review_request(self):
         try:
-            review_request = self.review_request.all()[0]
+            return self.review_request.all()[0]
         except IndexError:
-            review_request = self.inactive_review_request.all()[0]
+            try:
+                return self.inactive_review_request.all()[0]
+            except IndexError:
+                # Maybe it's on a draft.
+                try:
+                    draft = self.drafts.get()
+                except ReviewRequestDraft.DoesNotExist:
+                    draft = self.inactive_drafts.get()
+
+                return draft.review_request
+
+    def get_absolute_url(self):
+        review_request = self.get_review_request()
 
         if review_request.local_site:
             local_site_name = review_request.local_site.name
@@ -1038,17 +1050,16 @@ class ReviewRequestDraft(models.Model):
                          'user')])
 
         # Specifically handle bug numbers
-        old_bugs = set(review_request.get_bug_list())
-        new_bugs = set(self.get_bug_list())
+        old_bugs = review_request.get_bug_list()
+        new_bugs = self.get_bug_list()
 
-        if old_bugs != new_bugs:
+        if set(old_bugs) != set(new_bugs):
             update_field(review_request, self, 'bugs_closed',
                          record_changes=False)
 
             if self.changedesc:
                 self.changedesc.record_field_change('bugs_closed',
-                                                    old_bugs - new_bugs,
-                                                    new_bugs - old_bugs)
+                                                    old_bugs, new_bugs)
 
 
         # Screenshots are a bit special.  The list of associated screenshots can

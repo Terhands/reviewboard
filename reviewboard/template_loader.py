@@ -7,9 +7,11 @@ class ExtensionLoader(app_directories.Loader):
     is_usable = True
 
     def load_template(self, template_name, template_dirs=None):
-        """Template loader that loads extended templates"""
+        """
+        Template loader that loads extended templates.
 
-        # This loader searches for templates in the form original_extended.html.
+        This loader searches for templates in the form original_extended.html.
+        """
 
         template_dirs = getattr(settings, "TEMPLATE_DIRS", [])
 
